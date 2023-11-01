@@ -1,0 +1,47 @@
+using System;
+using System.Collections;
+
+class Program
+{
+    static void Main()
+    {
+        Hashtable phoneBook = new Hashtable();
+
+        Console.WriteLine("Digite os dados de até 5 pessoas:");
+        for (int i = 1; i <= 5; i++)
+        {
+            Console.WriteLine($"Pessoa {i}:");
+            Console.Write("CPF: ");
+            string cpf = Console.ReadLine();
+
+            Console.Write("Telefone: ");
+            string telefone = Console.ReadLine();
+
+      
+            phoneBook[cpf] = telefone;
+
+            Console.WriteLine();
+        }
+
+        Console.WriteLine("Dados armazenados:");
+        foreach (DictionaryEntry entry in phoneBook)
+        {
+            string cpf = (string)entry.Key;
+            string telefone = (string)entry.Value;
+            Console.WriteLine($"CPF: {cpf}, Telefone: {telefone}");
+        }
+
+        Console.Write("Digite um CPF para pesquisar: ");
+        string cpfPesquisa = Console.ReadLine();
+
+        if (phoneBook.ContainsKey(cpfPesquisa))
+        {
+            string telefoneEncontrado = (string)phoneBook[cpfPesquisa];
+            Console.WriteLine($"Telefone encontrado para o CPF {cpfPesquisa}: {telefoneEncontrado}");
+        }
+        else
+        {
+            Console.WriteLine("CPF não encontrado.");
+        }
+    }
+}
