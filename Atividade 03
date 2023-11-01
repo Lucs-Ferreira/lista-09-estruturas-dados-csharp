@@ -1,0 +1,78 @@
+using System;
+using System.Collections;
+
+class Program
+{
+    static void Main()
+    {
+        Hashtable products = new Hashtable();
+        Hashtable cart = new Hashtable();
+
+        // Adicione alguns produtos à Hashtable
+        products["Produto1"] = 10.0;
+        products["Produto2"] = 15.0;
+        products["Produto3"] = 20.0;
+
+        bool shopping = true;
+        double totalAmount = 0.0;
+
+        while (shopping)
+        {
+            Console.WriteLine("Opções:");
+            Console.WriteLine("1. Adicionar produto ao carrinho");
+            Console.WriteLine("2. Visualizar carrinho");
+            Console.WriteLine("3. Finalizar compra");
+            Console.WriteLine("4. Sair");
+            Console.Write("Escolha uma opção: ");
+
+            int choice;
+            if (int.TryParse(Console.ReadLine(), out choice))
+            {
+                switch (choice)
+                {
+                    case 1:
+                        Console.Write("Digite o nome do produto a adicionar: ");
+                        string productName = Console.ReadLine();
+                        if (products.ContainsKey(productName))
+                        {
+                            double productPrice = (double)products[productName];
+                            cart[productName] = productPrice;
+                            Console.WriteLine($"'{productName}' adicionado ao carrinho por R${productPrice}");
+                            totalAmount += productPrice;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Produto não encontrado.");
+                        }
+                        break;
+                    case 2:
+                        Console.WriteLine("Carrinho de compras:");
+                        foreach (DictionaryEntry entry in cart)
+                        {
+                            string productNameInCart = (string)entry.Key;
+                            double productPriceInCart = (double)entry.Value;
+                            Console.WriteLine($"- {productNameInCart}: R${productPriceInCart}");
+                        }
+                        Console.WriteLine($"Total: R${totalAmount}");
+                        break;
+                    case 3:
+                        Console.WriteLine($"Total a ser pago: R${totalAmount}");
+                        shopping = false;
+                        break;
+                    case 4:
+                        shopping = false;
+                        break;
+                    default:
+                        Console.WriteLine("Opção inválida. Tente novamente.");
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Opção inválida. Tente novamente.");
+            }
+        }
+
+        Console.WriteLine("Obrigado por fazer suas compras!");
+    }
+}
